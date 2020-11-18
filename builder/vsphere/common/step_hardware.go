@@ -56,6 +56,10 @@ func (c *HardwareConfig) Prepare() []error {
 		errs = append(errs, fmt.Errorf("'firmware' must be '', 'bios', 'efi' or 'efi-secure'"))
 	}
 
+	if c.NestedHV && c.Firmware != "efi-secure" {
+		errs = append(errs, fmt.Errorf("If 'NestedHV' is enabled, firmware must be 'efi-secure'"))
+	}
+
 	return errs
 }
 
